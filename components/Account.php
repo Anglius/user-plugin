@@ -160,8 +160,10 @@ class Account extends ComponentBase
     /**
      * Sign in the user
      */
-    public function onSignin()
-    {
+    /**
+     * Sign in the user
+     */
+    public function onSignin() {
         try {
             /*
              * Validate input
@@ -169,9 +171,9 @@ class Account extends ComponentBase
             $data = post();
             $rules = [];
 
-            $rules['login'] = $this->loginAttribute() == UserSettings::LOGIN_USERNAME
-                ? 'required|between:2,255'
-                : 'required|email|between:6,255';
+            $rules['login'] = $this->loginAttribute() == UserSettings::LOGIN_EMAIL
+                ? 'required|email|between:6,255'
+                : 'required|between:2,255';
 
             $rules['password'] = 'required|between:4,255';
 
@@ -192,12 +194,12 @@ class Account extends ComponentBase
                 'password' => array_get($data, 'password')
             ];
 
-            Event::fire('crytofy.user.beforeAuthenticate', [$this, $credentials]);
+            Event::fire('rainlab.user.beforeAuthenticate', [$this, $credentials]);
 
             $user = Auth::authenticate($credentials, true);
             if ($user->isBanned()) {
                 Auth::logout();
-                throw new AuthException(/*Sorry, this user is currently not activated. Please contact us for further assistance.*/'crytofy.user::lang.account.banned');
+                throw new AuthException(/*Sorry, this user is currently not activated. Please contact us for further assistance.*/'rainlab.user::lang.account.banned');
             }
 
             /*

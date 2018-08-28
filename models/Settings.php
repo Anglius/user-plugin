@@ -22,6 +22,7 @@ class Settings extends Model
 
     const LOGIN_EMAIL = 'email';
     const LOGIN_USERNAME = 'username';
+    const LOGIN_BOTH = 'both';
 
     public function initSettingsData()
     {
@@ -55,7 +56,8 @@ class Settings extends Model
     {
         return [
             self::LOGIN_EMAIL => ['crytofy.user::lang.login.attribute_email'],
-            self::LOGIN_USERNAME => ['crytofy.user::lang.login.attribute_username']
+            self::LOGIN_USERNAME => ['crytofy.user::lang.login.attribute_username'],
+            self::LOGIN_BOTH => ['Username and email']
         ];
     }
 
