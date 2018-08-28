@@ -1,8 +1,8 @@
-<?php namespace RainLab\User\Models;
+<?php namespace Crytofy\User\Models;
 
 use Lang;
 use Model;
-use RainLab\User\Models\User as UserModel;
+use Crytofy\User\Models\User as UserModel;
 
 class Settings extends Model
 {
@@ -37,25 +37,25 @@ class Settings extends Model
     {
         return [
             self::ACTIVATE_AUTO => [
-                'rainlab.user::lang.settings.activate_mode_auto',
-                'rainlab.user::lang.settings.activate_mode_auto_comment'
+                'crytofy.user::lang.settings.activate_mode_auto',
+                'crytofy.user::lang.settings.activate_mode_auto_comment'
             ],
             self::ACTIVATE_USER => [
-                'rainlab.user::lang.settings.activate_mode_user',
-                'rainlab.user::lang.settings.activate_mode_user_comment'
+                'crytofy.user::lang.settings.activate_mode_user',
+                'crytofy.user::lang.settings.activate_mode_user_comment'
             ],
             self::ACTIVATE_ADMIN => [
-                'rainlab.user::lang.settings.activate_mode_admin',
-                'rainlab.user::lang.settings.activate_mode_admin_comment'
+                'crytofy.user::lang.settings.activate_mode_admin',
+                'crytofy.user::lang.settings.activate_mode_admin_comment'
             ]
         ];
-    }
+}
 
     public function getLoginAttributeOptions()
     {
         return [
-            self::LOGIN_EMAIL => ['rainlab.user::lang.login.attribute_email'],
-            self::LOGIN_USERNAME => ['rainlab.user::lang.login.attribute_username']
+            self::LOGIN_EMAIL => ['crytofy.user::lang.login.attribute_email'],
+            self::LOGIN_USERNAME => ['crytofy.user::lang.login.attribute_username']
         ];
     }
 

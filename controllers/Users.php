@@ -1,4 +1,4 @@
-<?php namespace RainLab\User\Controllers;
+<?php namespace Crytofy\User\Controllers;
 
 use Auth;
 use Lang;
@@ -8,10 +8,10 @@ use BackendMenu;
 use BackendAuth;
 use Backend\Classes\Controller;
 use System\Classes\SettingsManager;
-use RainLab\User\Models\User;
-use RainLab\User\Models\UserGroup;
-use RainLab\User\Models\MailBlocker;
-use RainLab\User\Models\Settings as UserSettings;
+use Crytofy\User\Models\User;
+use Crytofy\User\Models\UserGroup;
+use Crytofy\User\Models\MailBlocker;
+use Crytofy\User\Models\Settings as UserSettings;
 
 class Users extends Controller
 {
@@ -41,7 +41,7 @@ class Users extends Controller
     /**
      * @var array Permissions required to view this page.
      */
-    public $requiredPermissions = ['rainlab.users.access_users'];
+    public $requiredPermissions = ['crytofy.users.access_users'];
 
     /**
      * @var string HTML body tag class
@@ -55,13 +55,13 @@ class Users extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('RainLab.User', 'user', 'users');
-        SettingsManager::setContext('RainLab.User', 'settings');
+        BackendMenu::setContext('Crytofy.User', 'user', 'users');
+        SettingsManager::setContext('Crytofy.User', 'settings');
     }
 
     public function index()
     {
-        $this->addJs('/plugins/rainlab/user/assets/js/bulk-actions.js');
+        $this->addJs('/plugins/crytofy/user/assets/js/bulk-actions.js');
 
         $this->asExtension('ListController')->index();
     }
@@ -132,7 +132,7 @@ class Users extends Controller
 
         $model->attemptActivation($model->activation_code);
 
-        Flash::success(Lang::get('rainlab.user::lang.users.activated_success'));
+        Flash::success(Lang::get('crytofy.user::lang.users.activated_success'));
 
         if ($redirect = $this->makeRedirect('update-close', $model)) {
             return $redirect;
@@ -148,7 +148,7 @@ class Users extends Controller
 
         $model->unban();
 
-        Flash::success(Lang::get('rainlab.user::lang.users.unbanned_success'));
+        Flash::success(Lang::get('crytofy.user::lang.users.unbanned_success'));
 
         if ($redirect = $this->makeRedirect('update-close', $model)) {
             return $redirect;
@@ -188,7 +188,7 @@ class Users extends Controller
             $model->groups()->add($group);
         }
 
-        Flash::success(Lang::get('rainlab.user::lang.users.convert_guest_success'));
+        Flash::success(Lang::get('crytofy.user::lang.users.convert_guest_success'));
 
         if ($redirect = $this->makeRedirect('update-close', $model)) {
             return $redirect;
@@ -200,7 +200,7 @@ class Users extends Controller
      */
     public function preview_onImpersonateUser($recordId)
     {
-        if (!$this->user->hasAccess('rainlab.users.impersonate_user')) {
+        if (!$this->user->hasAccess('crytofy.users.impersonate_user')) {
             return Response::make(Lang::get('backend::lang.page.access_denied.label'), 403);
         }
 
@@ -208,7 +208,7 @@ class Users extends Controller
 
         Auth::impersonate($model);
 
-        Flash::success(Lang::get('rainlab.user::lang.users.impersonate_success'));
+        Flash::success(Lang::get('crytofy.user::lang.users.impersonate_success'));
     }
 
     /**
@@ -271,10 +271,10 @@ class Users extends Controller
                 }
             }
 
-            Flash::success(Lang::get('rainlab.user::lang.users.'.$bulkAction.'_selected_success'));
+            Flash::success(Lang::get('crytofy.user::lang.users.'.$bulkAction.'_selected_success'));
         }
         else {
-            Flash::error(Lang::get('rainlab.user::lang.users.'.$bulkAction.'_selected_empty'));
+            Flash::error(Lang::get('crytofy.user::lang.users.'.$bulkAction.'_selected_empty'));
         }
 
         return $this->listRefresh();

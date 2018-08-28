@@ -44,11 +44,11 @@ As a security precaution, you may restrict users from having sessions across mul
 
 #### Notifications
 
-When a user is first activated -- either by registration, email confirmation or administrator approval -- they are sent a welcome email. To disable the welcome email, select "Do not send a notification" from the **Welcome mail template** dropdown. The default message template used is `rainlab.user::mail.welcome` and you can customize this by selecting **Mail > Mail Templates** from the settings menu.
+When a user is first activated -- either by registration, email confirmation or administrator approval -- they are sent a welcome email. To disable the welcome email, select "Do not send a notification" from the **Welcome mail template** dropdown. The default message template used is `cryptofy.user::mail.welcome` and you can customize this by selecting **Mail > Mail Templates** from the settings menu.
 
 ## Extended features
 
-For extra functionality, consider also installing the [User Plus+ plugin](http://octobercms.com/plugin/rainlab-userplus) (`RainLab.UserPlus`).
+For extra functionality, consider also installing the [User Plus+ plugin](http://octobercms.com/plugin/cryptofy-userplus) (`Cryptofy.UserPlus`).
 
 ## Session component
 
@@ -87,7 +87,7 @@ The `security` property can be user, guest or all. The `redirect` property refer
 
 Access to routes can be restricted by applying the `AuthMiddleware`.
 
-    Route::group(['middleware' => 'RainLab\User\Classes\AuthMiddleware'], function () {
+    Route::group(['middleware' => 'Cryptofy\User\Classes\AuthMiddleware'], function () {
         // All routes here will require authentication
     });
 
@@ -283,7 +283,7 @@ When a user registers with the same email address using the `Auth::register` met
 
 > **Important**: If you are using guest accounts, it is important to disable sensitive functionality for user accounts that are not verified, since it may be possible for anyone to inherit a guest account.
 
-You may also convert a guest to a registered user with the `convertToRegistered` method. This will generate a random password and sends an invitation using the `rainlab.user::mail.invite` template.
+You may also convert a guest to a registered user with the `convertToRegistered` method. This will generate a random password and sends an invitation using the `cryptofy.user::mail.invite` template.
 
     $user->convertToRegistered();
 
@@ -295,24 +295,24 @@ To disable the notification and password reset, pass the first argument as false
 
 This plugin will fire some global events that can be useful for interacting with other plugins.
 
-- **rainlab.user.beforeRegister**: Before the user's registration is processed. Passed the `$data` variable by reference to enable direct modifications to the `$data` provided to the `Auth::register()` method.
-- **rainlab.user.register**: The user has successfully registered. Passed the `$user` object and the submitted `$data` variable.
-- **rainlab.user.beforeAuthenticate**: Before the user is attempting to authenticate using the Account component.
-- **rainlab.user.login**: The user has successfully signed in.
-- **rainlab.user.logout**: The user has successfully signed out.
-- **rainlab.user.deactivate**: The user has opted-out of the site by deactivating their account. This should be used to disable any content the user may want removed.
-- **rainlab.user.reactivate**: The user has reactivated their own account by signing back in. This should revive the users content on the site.
-- **rainlab.user.getNotificationVars**: Fires when sending a user notification to enable passing more variables to the email templates. Passes the `$user` model the template will be for.
+- **cryptofy.user.beforeRegister**: Before the user's registration is processed. Passed the `$data` variable by reference to enable direct modifications to the `$data` provided to the `Auth::register()` method.
+- **cryptofy.user.register**: The user has successfully registered. Passed the `$user` object and the submitted `$data` variable.
+- **cryptofy.user.beforeAuthenticate**: Before the user is attempting to authenticate using the Account component.
+- **cryptofy.user.login**: The user has successfully signed in.
+- **cryptofy.user.logout**: The user has successfully signed out.
+- **cryptofy.user.deactivate**: The user has opted-out of the site by deactivating their account. This should be used to disable any content the user may want removed.
+- **cryptofy.user.reactivate**: The user has reactivated their own account by signing back in. This should revive the users content on the site.
+- **cryptofy.user.getNotificationVars**: Fires when sending a user notification to enable passing more variables to the email templates. Passes the `$user` model the template will be for.
 
 Here is an example of hooking an event:
 
-    Event::listen('rainlab.user.deactivate', function($user) {
+    Event::listen('cryptofy.user.deactivate', function($user) {
         // Hide all posts by the user
     });
 
 A common requirement is to adapt another to a legacy authentication system. In the example below, the `WordPressLogin::check` method would check the user password using an alternative hashing method, and if successful, update to the new one used by October.
 
-    Event::listen('rainlab.user.beforeAuthenticate', function($component, $credentials) {
+    Event::listen('cryptofy.user.beforeAuthenticate', function($component, $credentials) {
         $login = array_get($credentials, 'login');
         $password = array_get($credentials, 'password');
 

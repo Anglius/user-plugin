@@ -3,23 +3,23 @@
 # ===================================
 
 # Record name
-name: rainlab.user::lang.user.label
+name: crytofy.user::lang.user.label
 
 # Model Form Field configuration
-form: $/rainlab/user/models/user/fields.yaml
+form: $/crytofy/user/models/user/fields.yaml
 
 # Model Class name
-modelClass: RainLab\User\Models\User
+modelClass: Crytofy\User\Models\User
 
 # Default redirect location
-defaultRedirect: rainlab/user/users
+defaultRedirect: crytofy/user/users
 
 # Create page
 create:
-    redirect: rainlab/user/users/preview/:id
-    redirectClose: rainlab/user/users
+    redirect: crytofy/user/users/preview/:id
+    redirectClose: crytofy/user/users
 
 # Update page
 update:
-    redirect: rainlab/user/users/update/:id
-    redirectClose: rainlab/user/users/preview/:id
+    redirect: crytofy/user/users/update/:id
+    redirectClose: crytofy/user/users/preview/:id

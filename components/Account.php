@@ -1,4 +1,4 @@
-<?php namespace RainLab\User\Components;
+<?php namespace Crytofy\User\Components;
 
 use Lang;
 use Auth;
@@ -13,7 +13,7 @@ use ValidationException;
 use ApplicationException;
 use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
-use RainLab\User\Models\Settings as UserSettings;
+use Crytofy\User\Models\Settings as UserSettings;
 use Exception;
 
 /**
@@ -27,8 +27,8 @@ class Account extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name'        => /*Account*/'rainlab.user::lang.account.account',
-            'description' => /*User management form.*/'rainlab.user::lang.account.account_desc'
+            'name'        => /*Account*/'crytofy.user::lang.account.account',
+            'description' => /*User management form.*/'crytofy.user::lang.account.account_desc'
         ];
     }
 
@@ -36,20 +36,20 @@ class Account extends ComponentBase
     {
         return [
             'redirect' => [
-                'title'       => /*Redirect to*/'rainlab.user::lang.account.redirect_to',
-                'description' => /*Page name to redirect to after update, sign in or registration.*/'rainlab.user::lang.account.redirect_to_desc',
+                'title'       => /*Redirect to*/'crytofy.user::lang.account.redirect_to',
+                'description' => /*Page name to redirect to after update, sign in or registration.*/'crytofy.user::lang.account.redirect_to_desc',
                 'type'        => 'dropdown',
                 'default'     => ''
             ],
             'paramCode' => [
-                'title'       => /*Activation Code Param*/'rainlab.user::lang.account.code_param',
-                'description' => /*The page URL parameter used for the registration activation code*/ 'rainlab.user::lang.account.code_param_desc',
+                'title'       => /*Activation Code Param*/'crytofy.user::lang.account.code_param',
+                'description' => /*The page URL parameter used for the registration activation code*/ 'crytofy.user::lang.account.code_param_desc',
                 'type'        => 'string',
                 'default'     => 'code'
             ],
             'forceSecure' => [
-                'title'       => /*Force secure protocol*/'rainlab.user::lang.account.force_secure',
-                'description' => /*Always redirect the URL with the HTTPS schema.*/'rainlab.user::lang.account.force_secure_desc',
+                'title'       => /*Force secure protocol*/'crytofy.user::lang.account.force_secure',
+                'description' => /*Always redirect the URL with the HTTPS schema.*/'crytofy.user::lang.account.force_secure_desc',
                 'type'        => 'checkbox',
                 'default'     => 0
             ],
@@ -132,8 +132,8 @@ class Account extends ComponentBase
     public function loginAttributeLabel()
     {
         return Lang::get($this->loginAttribute() == UserSettings::LOGIN_EMAIL
-            ? /*Email*/'rainlab.user::lang.login.attribute_email'
-            : /*Username*/'rainlab.user::lang.login.attribute_username'
+            ? /*Email*/'crytofy.user::lang.login.attribute_email'
+            : /*Username*/'crytofy.user::lang.login.attribute_username'
         );
     }
 
@@ -192,12 +192,12 @@ class Account extends ComponentBase
                 'password' => array_get($data, 'password')
             ];
 
-            Event::fire('rainlab.user.beforeAuthenticate', [$this, $credentials]);
+            Event::fire('crytofy.user.beforeAuthenticate', [$this, $credentials]);
 
             $user = Auth::authenticate($credentials, true);
             if ($user->isBanned()) {
                 Auth::logout();
-                throw new AuthException(/*Sorry, this user is currently not activated. Please contact us for further assistance.*/'rainlab.user::lang.account.banned');
+                throw new AuthException(/*Sorry, this user is currently not activated. Please contact us for further assistance.*/'crytofy.user::lang.account.banned');
             }
 
             /*
@@ -220,7 +220,7 @@ class Account extends ComponentBase
     {
         try {
             if (!$this->canRegister()) {
-                throw new ApplicationException(Lang::get(/*Registrations are currently disabled.*/'rainlab.user::lang.account.registration_disabled'));
+                throw new ApplicationException(Lang::get(/*Registrations are currently disabled.*/'crytofy.user::lang.account.registration_disabled'));
             }
 
             /*
@@ -249,14 +249,14 @@ class Account extends ComponentBase
             /*
              * Register user
              */
-            Event::fire('rainlab.user.beforeRegister', [&$data]);
+            Event::fire('crytofy.user.beforeRegister', [&$data]);
 
             $requireActivation = UserSettings::get('require_activation', true);
             $automaticActivation = UserSettings::get('activate_mode') == UserSettings::ACTIVATE_AUTO;
             $userActivation = UserSettings::get('activate_mode') == UserSettings::ACTIVATE_USER;
             $user = Auth::register($data, $automaticActivation);
 
-            Event::fire('rainlab.user.register', [$user, $data]);
+            Event::fire('crytofy.user.register', [$user, $data]);
 
             /*
              * Activation is by the user, send the email
@@ -264,7 +264,7 @@ class Account extends ComponentBase
             if ($userActivation) {
                 $this->sendActivationEmail($user);
 
-                Flash::success(Lang::get(/*An activation email has been sent to your email address.*/'rainlab.user::lang.account.activation_email_sent'));
+                Flash::success(Lang::get(/*An activation email has been sent to your email address.*/'crytofy.user::lang.account.activation_email_sent'));
             }
 
             /*
@@ -296,7 +296,7 @@ class Account extends ComponentBase
         try {
             $code = post('code', $code);
 
-            $errorFields = ['code' => Lang::get(/*Invalid activation code supplied.*/'rainlab.user::lang.account.invalid_activation_code')];
+            $errorFields = ['code' => Lang::get(/*Invalid activation code supplied.*/'crytofy.user::lang.account.invalid_activation_code')];
 
             /*
              * Break up the code parts
@@ -320,7 +320,7 @@ class Account extends ComponentBase
                 throw new ValidationException($errorFields);
             }
 
-            Flash::success(Lang::get(/*Successfully activated your account.*/'rainlab.user::lang.account.success_activation'));
+            Flash::success(Lang::get(/*Successfully activated your account.*/'crytofy.user::lang.account.success_activation'));
 
             /*
              * Sign in the user
@@ -357,7 +357,7 @@ class Account extends ComponentBase
             Auth::login($user->reload(), true);
         }
 
-        Flash::success(post('flash', Lang::get(/*Settings successfully saved!*/'rainlab.user::lang.account.success_saved')));
+        Flash::success(post('flash', Lang::get(/*Settings successfully saved!*/'crytofy.user::lang.account.success_saved')));
 
         /*
          * Redirect
@@ -379,13 +379,13 @@ class Account extends ComponentBase
         }
 
         if (!$user->checkHashValue('password', post('password'))) {
-            throw new ValidationException(['password' => Lang::get('rainlab.user::lang.account.invalid_deactivation_pass')]);
+            throw new ValidationException(['password' => Lang::get('crytofy.user::lang.account.invalid_deactivation_pass')]);
         }
 
         Auth::logout();
         $user->delete();
 
-        Flash::success(post('flash', Lang::get(/*Successfully deactivated your account. Sorry to see you go!*/'rainlab.user::lang.account.success_deactivation')));
+        Flash::success(post('flash', Lang::get(/*Successfully deactivated your account. Sorry to see you go!*/'crytofy.user::lang.account.success_deactivation')));
 
         /*
          * Redirect
@@ -402,14 +402,14 @@ class Account extends ComponentBase
     {
         try {
             if (!$user = $this->user()) {
-                throw new ApplicationException(Lang::get(/*You must be logged in first!*/'rainlab.user::lang.account.login_first'));
+                throw new ApplicationException(Lang::get(/*You must be logged in first!*/'crytofy.user::lang.account.login_first'));
             }
 
             if ($user->is_activated) {
-                throw new ApplicationException(Lang::get(/*Your account is already activated!*/'rainlab.user::lang.account.already_active'));
+                throw new ApplicationException(Lang::get(/*Your account is already activated!*/'crytofy.user::lang.account.already_active'));
             }
 
-            Flash::success(Lang::get(/*An activation email has been sent to your email address.*/'rainlab.user::lang.account.activation_email_sent'));
+            Flash::success(Lang::get(/*An activation email has been sent to your email address.*/'crytofy.user::lang.account.activation_email_sent'));
 
             $this->sendActivationEmail($user);
 
@@ -472,7 +472,7 @@ class Account extends ComponentBase
             'code' => $code
         ];
 
-        Mail::send('rainlab.user::mail.activate', $data, function($message) use ($user) {
+        Mail::send('crytofy.user::mail.activate', $data, function($message) use ($user) {
             $message->to($user->email, $user->name);
         });
     }

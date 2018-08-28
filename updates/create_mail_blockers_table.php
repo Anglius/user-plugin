@@ -1,4 +1,4 @@
-<?php namespace RainLab\User\Updates;
+<?php namespace Crytofy\User\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
@@ -8,7 +8,7 @@ class CreateMailBlockersTable extends Migration
 
     public function up()
     {
-        Schema::create('rainlab_user_mail_blockers', function($table)
+        Schema::create('crytofy_user_mail_blockers', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -21,7 +21,7 @@ class CreateMailBlockersTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('rainlab_user_mail_blockers');
+        Schema::dropIfExists('crytofy_user_mail_blockers');
     }
 
 }

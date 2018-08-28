@@ -1,4 +1,4 @@
-<?php namespace RainLab\User\Models;
+<?php namespace Crytofy\User\Models;
 
 use October\Rain\Auth\Models\Group as GroupBase;
 use ApplicationException;
@@ -45,7 +45,7 @@ class UserGroup extends GroupBase
 
     /**
      * Returns the guest user group.
-     * @return RainLab\User\Models\UserGroup
+     * @return Crytofy\User\Models\UserGroup
      */
     public static function getGuestGroup()
     {

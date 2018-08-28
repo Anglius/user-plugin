@@ -1,11 +1,11 @@
-<?php namespace RainLab\User\NotifyRules;
+<?php namespace Crytofy\User\NotifyRules;
 
-use RainLab\Notify\Classes\ModelAttributesConditionBase;
+use Crytofy\Notify\Classes\ModelAttributesConditionBase;
 use ApplicationException;
 
 class UserAttributeCondition extends ModelAttributesConditionBase
 {
-    protected $modelClass = \RainLab\User\Models\User::class;
+    protected $modelClass = \Crytofy\User\Models\User::class;
 
     public function getGroupingTitle()
     {

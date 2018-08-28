@@ -1,4 +1,4 @@
-<?php namespace RainLab\User\Classes;
+<?php namespace Crytofy\User\Classes;
 
 use App;
 use Illuminate\Routing\Redirector;

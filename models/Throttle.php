@@ -1,4 +1,4 @@
-<?php namespace RainLab\User\Models;
+<?php namespace Crytofy\User\Models;
 
 use October\Rain\Auth\Models\Throttle as ThrottleBase;
 

@@ -1,6 +1,6 @@
-<?php namespace RainLab\User\Updates;
+<?php namespace Crytofy\User\Updates;
 
-use RainLab\User\Models\UserGroup;
+use Crytofy\User\Models\UserGroup;
 use October\Rain\Database\Updates\Seeder;
 
 class SeedUserGroupsTable extends Seeder

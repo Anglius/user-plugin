@@ -3,29 +3,29 @@
 # ===================================
 
 # Record name
-name: rainlab.user::lang.group.label
+name: crytofy.user::lang.group.label
 
 # Model Form Field configuration
-form: $/rainlab/user/models/usergroup/fields.yaml
+form: $/crytofy/user/models/usergroup/fields.yaml
 
 # Model Class name
-modelClass: RainLab\User\Models\UserGroup
+modelClass: Crytofy\User\Models\UserGroup
 
 # Default redirect location
-defaultRedirect: rainlab/user/usergroups
+defaultRedirect: crytofy/user/usergroups
 
 # Create page
 create:
-    title: rainlab.user::lang.groups.create_title
-    redirect: rainlab/user/usergroups/update/:id
-    redirectClose: rainlab/user/usergroups
+    title: crytofy.user::lang.groups.create_title
+    redirect: crytofy/user/usergroups/update/:id
+    redirectClose: crytofy/user/usergroups
 
 # Update page
 update:
-    title: rainlab.user::lang.groups.update_title
-    redirect: rainlab/user/usergroups
-    redirectClose: rainlab/user/usergroups
+    title: crytofy.user::lang.groups.update_title
+    redirect: crytofy/user/usergroups
+    redirectClose: crytofy/user/usergroups
 
 # Preview page
 preview:
-    title: rainlab.user::lang.groups.update_title
+    title: crytofy.user::lang.groups.update_title

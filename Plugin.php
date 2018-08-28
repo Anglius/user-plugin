@@ -1,4 +1,4 @@
-<?php namespace RainLab\User;
+<?php namespace Cryptofy\User;
 
 use App;
 use Auth;
@@ -7,9 +7,9 @@ use Backend;
 use System\Classes\PluginBase;
 use System\Classes\SettingsManager;
 use Illuminate\Foundation\AliasLoader;
-use RainLab\User\Classes\UserRedirector;
-use RainLab\User\Models\MailBlocker;
-use RainLab\Notify\Classes\Notifier;
+use Cryptofy\User\Classes\UserRedirector;
+use Cryptofy\User\Models\MailBlocker;
+use Cryptofy\Notify\Classes\Notifier;
 
 class Plugin extends PluginBase
 {
@@ -21,21 +21,21 @@ class Plugin extends PluginBase
     public function pluginDetails()
     {
         return [
-            'name'        => 'rainlab.user::lang.plugin.name',
-            'description' => 'rainlab.user::lang.plugin.description',
-            'author'      => 'Alexey Bobkov, Samuel Georges',
+            'name'        => 'cryptofy.user::lang.plugin.name',
+            'description' => 'cryptofy.user::lang.plugin.description',
+            'author'      => 'Coinspace',
             'icon'        => 'icon-user',
-            'homepage'    => 'https://github.com/rainlab/user-plugin'
+            'homepage'    => 'https://github.com/Anglius/user-plugin'
         ];
     }
 
     public function register()
     {
         $alias = AliasLoader::getInstance();
-        $alias->alias('Auth', 'RainLab\User\Facades\Auth');
+        $alias->alias('Auth', 'Cryptofy\User\Facades\Auth');
 
         App::singleton('user.auth', function() {
-            return \RainLab\User\Classes\AuthManager::instance();
+            return \Cryptofy\User\Classes\AuthManager::instance();
         });
 
         App::singleton('redirect', function ($app) {
@@ -61,7 +61,7 @@ class Plugin extends PluginBase
         });
 
         /*
-         * Compatability with RainLab.Notify
+         * Compatability with Cryptofy.Notify
          */
         $this->bindNotificationEvents();
     }
@@ -69,30 +69,30 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            \RainLab\User\Components\Session::class       => 'session',
-            \RainLab\User\Components\Account::class       => 'account',
-            \RainLab\User\Components\ResetPassword::class => 'resetPassword'
+            \Cryptofy\User\Components\Session::class       => 'session',
+            \Cryptofy\User\Components\Account::class       => 'account',
+            \Cryptofy\User\Components\ResetPassword::class => 'resetPassword'
         ];
     }
 
     public function registerPermissions()
     {
         return [
-            'rainlab.users.access_users' => [
-                'tab'   => 'rainlab.user::lang.plugin.tab',
-                'label' => 'rainlab.user::lang.plugin.access_users'
+            'cryptofy.users.access_users' => [
+                'tab'   => 'cryptofy.user::lang.plugin.tab',
+                'label' => 'cryptofy.user::lang.plugin.access_users'
             ],
-            'rainlab.users.access_groups' => [
-                'tab'   => 'rainlab.user::lang.plugin.tab',
-                'label' => 'rainlab.user::lang.plugin.access_groups'
+            'cryptofy.users.access_groups' => [
+                'tab'   => 'cryptofy.user::lang.plugin.tab',
+                'label' => 'cryptofy.user::lang.plugin.access_groups'
             ],
-            'rainlab.users.access_settings' => [
-                'tab'   => 'rainlab.user::lang.plugin.tab',
-                'label' => 'rainlab.user::lang.plugin.access_settings'
+            'cryptofy.users.access_settings' => [
+                'tab'   => 'cryptofy.user::lang.plugin.tab',
+                'label' => 'cryptofy.user::lang.plugin.access_settings'
             ],
-            'rainlab.users.impersonate_user' => [
-                'tab'   => 'rainlab.user::lang.plugin.tab',
-                'label' => 'rainlab.user::lang.plugin.impersonate_user'
+            'cryptofy.users.impersonate_user' => [
+                'tab'   => 'cryptofy.user::lang.plugin.tab',
+                'label' => 'cryptofy.user::lang.plugin.impersonate_user'
             ],
         ];
     }
@@ -101,25 +101,25 @@ class Plugin extends PluginBase
     {
         return [
             'user' => [
-                'label'       => 'rainlab.user::lang.users.menu_label',
-                'url'         => Backend::url('rainlab/user/users'),
+                'label'       => 'cryptofy.user::lang.users.menu_label',
+                'url'         => Backend::url('cryptofy/user/users'),
                 'icon'        => 'icon-user',
-                'iconSvg'     => 'plugins/rainlab/user/assets/images/user-icon.svg',
-                'permissions' => ['rainlab.users.*'],
+                'iconSvg'     => 'plugins/cryptofy/user/assets/images/user-icon.svg',
+                'permissions' => ['cryptofy.users.*'],
                 'order'       => 500,
 
                 'sideMenu' => [
                     'users' => [
-                        'label' => 'rainlab.user::lang.users.menu_label',
+                        'label' => 'cryptofy.user::lang.users.menu_label',
                         'icon'        => 'icon-user',
-                        'url'         => Backend::url('rainlab/user/users'),
-                        'permissions' => ['rainlab.users.access_users']
+                        'url'         => Backend::url('cryptofy/user/users'),
+                        'permissions' => ['cryptofy.users.access_users']
                     ],
                     'usergroups' => [
-                        'label'       => 'rainlab.user::lang.groups.menu_label',
+                        'label'       => 'cryptofy.user::lang.groups.menu_label',
                         'icon'        => 'icon-users',
-                        'url'         => Backend::url('rainlab/user/usergroups'),
-                        'permissions' => ['rainlab.users.access_groups']
+                        'url'         => Backend::url('cryptofy/user/usergroups'),
+                        'permissions' => ['cryptofy.users.access_groups']
                     ]
                 ]
             ]
@@ -130,13 +130,13 @@ class Plugin extends PluginBase
     {
         return [
             'settings' => [
-                'label'       => 'rainlab.user::lang.settings.menu_label',
-                'description' => 'rainlab.user::lang.settings.menu_description',
+                'label'       => 'cryptofy.user::lang.settings.menu_label',
+                'description' => 'cryptofy.user::lang.settings.menu_description',
                 'category'    => SettingsManager::CATEGORY_USERS,
                 'icon'        => 'icon-cog',
-                'class'       => 'RainLab\User\Models\Settings',
+                'class'       => 'Cryptofy\User\Models\Settings',
                 'order'       => 500,
-                'permissions' => ['rainlab.users.access_settings']
+                'permissions' => ['cryptofy.users.access_settings']
             ]
         ];
     }
@@ -144,12 +144,12 @@ class Plugin extends PluginBase
     public function registerMailTemplates()
     {
         return [
-            'rainlab.user::mail.activate',
-            'rainlab.user::mail.welcome',
-            'rainlab.user::mail.restore',
-            'rainlab.user::mail.new_user',
-            'rainlab.user::mail.reactivate',
-            'rainlab.user::mail.invite',
+            'cryptofy.user::mail.activate',
+            'cryptofy.user::mail.welcome',
+            'cryptofy.user::mail.restore',
+            'cryptofy.user::mail.new_user',
+            'cryptofy.user::mail.reactivate',
+            'cryptofy.user::mail.invite',
         ];
     }
 
@@ -163,12 +163,12 @@ class Plugin extends PluginBase
                 ],
             ],
             'events' => [
-                \RainLab\User\NotifyRules\UserActivatedEvent::class,
-                \RainLab\User\NotifyRules\UserRegisteredEvent::class,
+                \Cryptofy\User\NotifyRules\UserActivatedEvent::class,
+                \Cryptofy\User\NotifyRules\UserRegisteredEvent::class,
             ],
             'actions' => [],
             'conditions' => [
-                \RainLab\User\NotifyRules\UserAttributeCondition::class
+                \Cryptofy\User\NotifyRules\UserAttributeCondition::class
             ],
         ];
     }
@@ -180,8 +180,8 @@ class Plugin extends PluginBase
         }
 
         Notifier::bindEvents([
-            'rainlab.user.activate' => \RainLab\User\NotifyRules\UserActivatedEvent::class,
-            'rainlab.user.register' => \RainLab\User\NotifyRules\UserRegisteredEvent::class
+            'cryptofy.user.activate' => \Cryptofy\User\NotifyRules\UserActivatedEvent::class,
+            'cryptofy.user.register' => \Cryptofy\User\NotifyRules\UserRegisteredEvent::class
         ]);
 
         Notifier::instance()->registerCallback(function($manager) {

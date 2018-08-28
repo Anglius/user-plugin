@@ -1,4 +1,4 @@
-<?php namespace RainLab\User\Models;
+<?php namespace Crytofy\User\Models;
 
 use Form;
 use Model;
@@ -16,7 +16,7 @@ class MailBlocker extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'rainlab_user_mail_blockers';
+    public $table = 'crytofy_user_mail_blockers';
 
     /**
      * @var array Guarded fields
@@ -34,7 +34,7 @@ class MailBlocker extends Model
      * @var array Templates names that cannot be blocked.
      */
     protected static $safeTemplates = [
-        'rainlab.user::mail.restore'
+        'crytofy.user::mail.restore'
     ];
 
     /**
@@ -52,7 +52,7 @@ class MailBlocker extends Model
      * - verify: Only allow mail templates that are registered in the system.
      *
      * @param  array $templates Template name as key and boolean as value. If false, template is blocked.
-     * @param  RainLab\User\Models\User $user
+     * @param  Crytofy\User\Models\User $user
      * @param  array $options
      * @return void
      */
@@ -102,7 +102,7 @@ class MailBlocker extends Model
     /**
      * Adds a block for a user and a mail view/template code.
      * @param string                   $template
-     * @param RainLab\User\Models\User $user
+     * @param Crytofy\User\Models\User $user
      * @return bool
      */
     public static function addBlock($template, $user)
@@ -131,7 +131,7 @@ class MailBlocker extends Model
     /**
      * Removes a block for a user and a mail view/template code.
      * @param string                   $template
-     * @param RainLab\User\Models\User $user
+     * @param Crytofy\User\Models\User $user
      * @return bool
      */
     public static function removeBlock($template, $user)
@@ -157,7 +157,7 @@ class MailBlocker extends Model
 
     /**
      * Blocks all mail messages for a user.
-     * @param RainLab\User\Models\User $user
+     * @param Crytofy\User\Models\User $user
      * @return bool
      */
     public static function blockAll($user)
@@ -167,7 +167,7 @@ class MailBlocker extends Model
 
     /**
      * Removes block on all mail messages for a user.
-     * @param RainLab\User\Models\User $user
+     * @param Crytofy\User\Models\User $user
      * @return bool
      */
     public static function unblockAll($user)
@@ -177,7 +177,7 @@ class MailBlocker extends Model
 
     /**
      * Checks if a user is blocking all templates.
-     * @param RainLab\User\Models\User $user
+     * @param Crytofy\User\Models\User $user
      * @return bool
      */
     public static function isBlockAll($user)

@@ -1,6 +1,6 @@
-<?php namespace RainLab\User\NotifyRules;
+<?php namespace Crytofy\User\NotifyRules;
 
-use RainLab\User\Classes\UserEventBase;
+use Crytofy\User\Classes\UserEventBase;
 
 class UserRegisteredEvent extends UserEventBase
 {

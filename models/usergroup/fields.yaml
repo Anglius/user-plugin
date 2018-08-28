@@ -4,16 +4,16 @@
 
 fields:
     name:
-        label: rainlab.user::lang.group.name
+        label: crytofy.user::lang.group.name
         span: left
 
     code:
-        label: rainlab.user::lang.group.code
-        comment: rainlab.user::lang.group.code_comment
+        label: crytofy.user::lang.group.code
+        comment: crytofy.user::lang.group.code_comment
         span: right
         preset: name
 
     description:
-        label: rainlab.user::lang.group.description_field
+        label: crytofy.user::lang.group.description_field
         type: textarea
         size: tiny
